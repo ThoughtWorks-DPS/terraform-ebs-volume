@@ -10,6 +10,8 @@ resource "aws_ebs_volume" "volume" {
   tags {
     Name = "${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)}"
   }
+  encrypted = true
+  kms_key_id = "${var.kms_key_arn}"
 }
 
 resource "aws_ebs_volume" "iops-volume" {
@@ -21,4 +23,6 @@ resource "aws_ebs_volume" "iops-volume" {
   tags {
     Name = "${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)}"
   }
+  encrypted = true
+  kms_key_id = "${var.kms_key_arn}"
 }

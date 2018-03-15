@@ -41,3 +41,8 @@ variable "iops" {
   description = "I/O operations per second (max is 50x volume size)"
   default = 0
 }
+
+variable "kms_key_arn" {
+  default = ""
+  type = "string"
+}
