@@ -46,3 +46,7 @@ variable "kms_key_arn" {
   default = ""
   type = "string"
 }
+
+variable "common_tags" {
+  type = "map"
+}

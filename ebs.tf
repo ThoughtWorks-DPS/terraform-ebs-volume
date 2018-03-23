@@ -8,10 +8,8 @@ resource "aws_ebs_volume" "volume" {
   type = "${var.type}"
   size = "${var.size}"
   tags   = "${merge(var.common_tags, map("Name",format("%s-%s-%s-%02d",var.environment, var.app_name, var.role, count.index+1)))}"
-
   encrypted = true
-  kms_key_id = "${var.kms_key_id}"
-
+  kms_key_id = "${var.kms_key_arn}"
 }
 
 resource "aws_ebs_volume" "iops-volume" {
@@ -22,5 +20,5 @@ resource "aws_ebs_volume" "iops-volume" {
   iops = "${var.iops}"
   tags   = "${merge(var.common_tags, map("Name",format("%s-%s-%s-%02d",var.environment, var.app_name, var.role, count.index+1)))}"
   encrypted = true
-  kms_key_id = "${var.kms_key_id}"
+  kms_key_id = "${var.kms_key_arn}"
 }
