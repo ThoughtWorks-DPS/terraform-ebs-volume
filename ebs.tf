@@ -7,11 +7,10 @@ resource "aws_ebs_volume" "volume" {
   availability_zone = "${var.availability_zones[count.index % length(var.availability_zones)]}"
   type = "${var.type}"
   size = "${var.size}"
-  tags {
-    Name = "${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)}"
-  }
+  tags   = "${merge(var.common_tags, map("Name","${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)"))}"
   encrypted = true
-  kms_key_id = "${var.kms_key_arn}"
+  kms_key_id = "${var.kms_key_id}"
+
 }
 
 resource "aws_ebs_volume" "iops-volume" {
@@ -20,9 +19,7 @@ resource "aws_ebs_volume" "iops-volume" {
   type = "io1"
   size = "${var.size}"
   iops = "${var.iops}"
-  tags {
-    Name = "${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)}"
-  }
+  tags   = "${merge(var.common_tags, map("Name","${var.environment}-${var.app_name}-${var.role}-${format("%02d", count.index+1)"))}"
   encrypted = true
-  kms_key_id = "${var.kms_key_arn}"
+  kms_key_id = "${var.kms_key_id}"
 }
